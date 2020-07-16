@@ -1,11 +1,12 @@
 package com.appleobject.notekeeper.model
 
-class DataManager {
+object DataManager {
     val courses = HashMap<String, CourseInfo>()
     val notes = ArrayList<NoteInfo>()
 
     init {
         initializeCourses()
+        initializeNotes()
     }
 
     private fun initializeCourses(){
@@ -20,5 +21,9 @@ class DataManager {
 
         course = CourseInfo("java_core", "Java Fundamentals: The Core Platform")
         courses.set(course.courseId, course)
+    }
+
+    private fun initializeNotes(){
+
     }
 }
