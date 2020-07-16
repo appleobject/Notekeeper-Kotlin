@@ -1,13 +1,11 @@
 <resources>
     <string name="app_name">NoteKeeper</string>
     <string name="action_settings">Settings</string>
-    <!-- Strings used for fragments for navigation -->
-    <string name="next">Next</string>
-    <string name="previous">Previous</string>
 
 
     <string name="note_title">Note title</string>
     <string name="note_text">Note text</string>
     <string name="title_activity_note_list">NoteKeeper</string>
     <string name="edit_note_activity">Edit Note</string>
+    <string name="next">Next</string>
 </resources>

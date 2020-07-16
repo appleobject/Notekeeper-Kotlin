@@ -1,11 +1,13 @@
 package com.appleobject.notekeeper
 
+import android.os.Build
 import android.os.Bundle
 
 import androidx.appcompat.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.ArrayAdapter
+import androidx.annotation.RequiresApi
 import com.appleobject.notekeeper.model.CourseInfo
 import com.appleobject.notekeeper.model.DataManager
 import kotlinx.android.synthetic.main.content_main.*
@@ -42,6 +44,19 @@ class MainActivity : AppCompatActivity() {
         spinnerCourses.setSelection(coursePosition)
     }
 
+    @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
+    override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
+        if (notePosition >= DataManager.notes.lastIndex) {
+            val menuItem = menu?.findItem(R.id.action_next)
+            if (menuItem != null) {
+                menuItem.icon = getDrawable(R.drawable.ic_white_block_24)
+                menuItem.isEnabled = false
+            }
+        }
+
+        return super.onPrepareOptionsMenu(menu)
+    }
+
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -55,7 +70,18 @@ class MainActivity : AppCompatActivity() {
         // as you specify a parent activity in AndroidManifest.xml.
         return when (item.itemId) {
             R.id.action_settings -> true
+            R.id.action_next -> {
+                moveNote()
+                true
+            }
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    private fun moveNote(): Boolean {
+        ++notePosition
+        displayNote()
+        invalidateOptionsMenu()
+        return true
     }
 }
