@@ -8,4 +8,5 @@
     <string name="title_activity_note_list">NoteKeeper</string>
     <string name="edit_note_activity">Edit Note</string>
     <string name="next">Next</string>
+    <string name="note_image">Note image</string>
 </resources>
