@@ -7,6 +7,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import com.appleobject.notekeeper.model.DataManager
+import com.appleobject.notekeeper.model.NoteInfo
 import kotlinx.android.synthetic.main.activity_note_list.*
 import kotlinx.android.synthetic.main.content_note_list.*
 
@@ -30,5 +31,10 @@ class NoteListActivity : AppCompatActivity() {
             activityIntent.putExtra(EXTRA_NOTE_POSITION, position)
             startActivity(activityIntent)
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        (listNote.adapter as ArrayAdapter<*>).notifyDataSetChanged()
     }
 }

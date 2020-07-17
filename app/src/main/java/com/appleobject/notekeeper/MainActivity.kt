@@ -10,6 +10,7 @@ import android.widget.ArrayAdapter
 import androidx.annotation.RequiresApi
 import com.appleobject.notekeeper.model.CourseInfo
 import com.appleobject.notekeeper.model.DataManager
+import com.appleobject.notekeeper.model.NoteInfo
 import kotlinx.android.synthetic.main.content_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -31,6 +32,9 @@ class MainActivity : AppCompatActivity() {
 
         if (notePosition != POSITION_NOT_SET){
             displayNote()
+        }else{
+            DataManager.notes.add(NoteInfo())
+            notePosition = DataManager.notes.lastIndex
         }
 
     }
