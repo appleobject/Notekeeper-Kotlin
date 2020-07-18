@@ -9,4 +9,17 @@
     <string name="edit_note_activity">Edit Note</string>
     <string name="next">Next</string>
     <string name="note_image">Note image</string>
+    <string name="title_activity_item">NoteKeeper</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+
+    <string name="menu_note">Notes</string>
+    <string name="menu_course">Courses</string>
+    <string name="communication">Communication</string>
+    <string name="share">Share</string>
+
+
 </resources>

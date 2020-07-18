@@ -17,7 +17,7 @@ class NoteListActivity : AppCompatActivity() {
         setContentView(R.layout.activity_note_list)
         setSupportActionBar(findViewById(R.id.toolbar))
 
-        fabNoteList.setOnClickListener { view ->
+        fabNoteList.setOnClickListener { _ ->
             val activityIntent = Intent(this, NoteActivity::class.java)
             startActivity(activityIntent)
         }
