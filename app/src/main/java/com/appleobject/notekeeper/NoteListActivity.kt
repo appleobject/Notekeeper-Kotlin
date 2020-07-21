@@ -11,6 +11,7 @@ import kotlinx.android.synthetic.main.content_note_list.*
 
 class NoteListActivity : AppCompatActivity() {
 
+    lateinit var noteRecyclerAdapter: NoteRecyclerAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,11 +23,17 @@ class NoteListActivity : AppCompatActivity() {
             startActivity(activityIntent)
         }
 
-        listItems.layoutManager = LinearLayoutManager(this)
 
-        listItems.adapter = NoteRecyclerAdapter(this, DataManager.notes)
+        initRecyclerView()
+    }
 
 
+    private fun initRecyclerView(){
+        listItems.apply {
+            layoutManager = LinearLayoutManager(this@NoteListActivity)
+            noteRecyclerAdapter = NoteRecyclerAdapter(this.context, DataManager.notes)
+            adapter = noteRecyclerAdapter
+        }
     }
 
     override fun onResume() {
