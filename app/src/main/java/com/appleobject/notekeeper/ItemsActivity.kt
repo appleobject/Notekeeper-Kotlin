@@ -8,17 +8,18 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.navigation.NavigationView
-import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.appleobject.notekeeper.model.DataManager
-import kotlinx.android.synthetic.main.activity_item.*
+import kotlinx.android.synthetic.main.activity_items.*
 import kotlinx.android.synthetic.main.content_note_list.*
 
-class ItemActivity : AppCompatActivity() , NavigationView.OnNavigationItemSelectedListener{
+class ItemsActivity : AppCompatActivity() , NavigationView.OnNavigationItemSelectedListener{
 
     private val linearLayoutManager by lazy {
         LinearLayoutManager(this)
@@ -36,18 +37,26 @@ class ItemActivity : AppCompatActivity() , NavigationView.OnNavigationItemSelect
         CourseRecyclerAdapter(this, DataManager.courses.values.toList())
     }
 
+    private val viewModel by lazy {
+        ViewModelProviders.of(this)[ItemsActivityViewModel::class.java]
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_item)
+        setContentView(R.layout.activity_items)
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
 
         val fab: FloatingActionButton = findViewById(R.id.fab)
-        fab.setOnClickListener { view ->
+        fab.setOnClickListener {
             startActivity(Intent(this, NoteActivity::class.java))
         }
 
-        displayNote()
+        if (savedInstanceState != null)
+            viewModel.restoreState(savedInstanceState)
+
+
+        handleDisplaySelection(viewModel.navDrawerDisplaySelection)
 
 
         nav_view.setNavigationItemSelectedListener(this)
@@ -60,6 +69,11 @@ class ItemActivity : AppCompatActivity() , NavigationView.OnNavigationItemSelect
         drawer_layout.setDrawerListener(toggleDrawer)
         toggleDrawer.syncState()
 
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        viewModel.saveState(outState)
     }
 
     private fun displayCourses() {
@@ -98,11 +112,10 @@ class ItemActivity : AppCompatActivity() , NavigationView.OnNavigationItemSelect
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when(item.itemId){
-            R.id.nav_notes ->{
-                displayNote()
-            }
+            R.id.nav_notes,
             R.id.nav_courses -> {
-                displayCourses()
+                handleDisplaySelection(item.itemId)
+                viewModel.navDrawerDisplaySelection = item.itemId
             }
             R.id.nav_share -> {
                 handleSelection("Don't you think you've shared enough..")
@@ -122,6 +135,17 @@ class ItemActivity : AppCompatActivity() , NavigationView.OnNavigationItemSelect
     override fun onNavigateUp(): Boolean {
          super.onNavigateUp()
         return true
+    }
+
+    fun handleDisplaySelection(itemId: Int){
+        when(itemId){
+            R.id.nav_notes ->{
+                displayNote()
+            }
+            R.id.nav_courses -> {
+                displayCourses()
+            }
+        }
     }
 
 }

@@ -10,19 +10,16 @@ import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.rule.ActivityTestRule
 import com.appleobject.notekeeper.model.DataManager
-import com.appleobject.notekeeper.model.NoteInfo
 import org.hamcrest.Matchers.containsString
-import org.junit.Assert.*
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.junit.runners.JUnit4
 
 @RunWith(AndroidJUnit4::class)
 class NavigationTest{
 
     @Rule @JvmField
-    val itemActivity = ActivityTestRule(ItemActivity::class.java)
+    val itemActivity = ActivityTestRule(ItemsActivity::class.java)
 
     @Test
     fun selectNoteAfterNavigationDrawerChange(){
@@ -39,7 +36,7 @@ class NavigationTest{
 
         val notePosition = 0
         onView(withId(R.id.listItems)).perform(
-            RecyclerViewActions.actionOnItemAtPosition<NoteRecyclerAdapter.ViewHolder>(notePosition, click()))
+            RecyclerViewActions.actionOnItemAtPosition<NoteRecyclerAdapter.NoteViewHolder>(notePosition, click()))
 
         val notes = DataManager.notes[notePosition]
         onView(withId(R.id.spinnerCourses)).check(matches(withSpinnerText(containsString(notes.course?.title))))

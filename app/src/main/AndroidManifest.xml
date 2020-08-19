@@ -11,7 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".ItemActivity"
+            android:name=".ItemsActivity"
             android:label="@string/title_activity_item"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
