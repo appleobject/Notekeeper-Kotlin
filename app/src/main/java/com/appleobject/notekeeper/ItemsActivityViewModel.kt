@@ -5,6 +5,8 @@ import androidx.lifecycle.ViewModel
 
 class ItemsActivityViewModel: ViewModel() {
 
+    var isNewlyCreated = true
+
     var navDrawerDisplaySelectionName =
         "com.appleobject.notekeeper.ItemsActivityViewModel.navDrawerDisplaySelectionName"
 
